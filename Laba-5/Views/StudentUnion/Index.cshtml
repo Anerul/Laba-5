@@ -1,0 +1,26 @@
+﻿@model StudentUnion[]
+@{
+    ViewBag.Title = "Список членов профсоюза";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{
+    int i = 0;
+    while (i < Model.Length && Model[i] != null)
+    {
+        <div>
+            <h4>@Html.DisplayFor(m => Model[i].FullName)</h4>
+            <dl>
+                <dt>@Html.LabelFor(m => Model[i].StudentId)</dt>
+                <dd>@Html.DisplayFor(m => Model[i].StudentId)</dd>
+
+                <dt>@Html.LabelFor(m => Model[i].JoinDate)</dt>
+                <dd>@Html.DisplayFor(m => Model[i].JoinDate)</dd>
+            </dl>
+        </div>
+        i++;
+    }
+}
+
+@Html.ActionLink("Добавить нового", "Create")

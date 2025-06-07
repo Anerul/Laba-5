@@ -1,0 +1,14 @@
+﻿@model StudentUnion
+@{
+    ViewBag.Title = "Добавление члена профсоюза";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelForModel()
+    @Html.EditorForModel()
+
+    <input type="submit" value="Добавить" />
+}

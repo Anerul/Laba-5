@@ -1,0 +1,8 @@
+﻿@helper ExternalDisplayMember(StudentUnion member)
+{
+    <div class="member-external">
+        <h3>@member.FullName</h3>
+        <p>Дата вступления: @member.JoinDate.ToShortDateString()</p>
+        <p>Факультет: @member.Faculty</p>
+    </div>
+}

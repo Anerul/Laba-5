@@ -1,0 +1,59 @@
+﻿@model StudentUnion[]
+@{
+    ViewBag.Title = "Все члены профсоюза";
+    bool useInternalHelper = ViewData["UseInternalHelper"] != null && (bool)ViewData["UseInternalHelper"];
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm("AllMembers", "StudentUnion", FormMethod.Post))
+{
+    <div style="margin: 15px 0;">
+        <label>
+            @Html.CheckBox("useInternalHelper", useInternalHelper, new { onchange = "this.form.submit()" })
+            Использовать внутренний метод отображения
+        </label>
+    </div>
+}
+
+
+@{
+    int i = 0;
+    while (i < Model.Length && Model[i] != null)
+    {
+        <div class="member-container" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+            @if (useInternalHelper)
+            {
+                @DisplayMember(Model[i])
+            }
+            else
+            {
+                @Helpers.ExternalDisplayMember(Model[i])
+            }
+        </div>
+        i++;
+    }
+}
+
+@helper DisplayMember(StudentUnion member)
+{
+    <div class="internal-view">
+        <h4>@Html.DisplayFor(m => member.FullName)</h4>
+        <dl class="dl-horizontal">
+            <dt>@Html.LabelFor(m => member.StudentId):</dt>
+            <dd>@Html.DisplayFor(m => member.StudentId)</dd>
+
+            <dt>@Html.LabelFor(m => member.JoinDate):</dt>
+            <dd>@Html.DisplayFor(m => member.JoinDate)</dd>
+
+            <dt>@Html.LabelFor(m => member.Faculty):</dt>
+            <dd>@Html.DisplayFor(m => member.Faculty)</dd>
+        </dl>
+    </div>
+}
+
+@if (!Model.Any() || Model[0] == null)
+{
+    <p>Нет данных о членах профсоюза</p>
+}
